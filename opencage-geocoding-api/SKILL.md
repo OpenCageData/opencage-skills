@@ -1,3 +1,8 @@
+---
+name: opencage-geocoding-api
+description: Reference for working with the OpenCage geocoding API
+---
+
 # OpenCage Geocoding API — General Concepts
 
 Use this skill whenever working with the OpenCage Geocoding API.
