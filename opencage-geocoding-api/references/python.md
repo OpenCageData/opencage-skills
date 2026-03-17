@@ -1,7 +1,7 @@
 # OpenCage Geocoding API — Python
 
 This skill covers Python-specific usage of the OpenCage Geocoding API.
-For general, language-agnostic concepts (endpoint, parameters, response structure, error codes, confidence scores, annotations, rate limits, test keys), refer to **opencage-geocoding-api.md** first.
+For general, language-agnostic concepts (endpoint, parameters, response structure, error codes, confidence scores, annotations, rate limits, test keys), refer to **opencage-geocoding-api/SKILL.md** first.
 
 ## Installation
 
@@ -31,7 +31,7 @@ if results:
     print(results[0]['formatted'])
 ```
 
-Both methods return a list of result dicts matching the structure described in **opencage-geocoding-api.md**. Always check `if results:` before accessing `results[0]` — an empty list is returned when nothing is found.
+Both methods return a list of result dicts matching the structure described in **opencage-geocoding-api/SKILL.md**. Always check `if results:` before accessing `results[0]` — an empty list is returned when nothing is found.
 
 ## Passing Optional Parameters
 

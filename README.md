@@ -4,8 +4,8 @@ Agent skills for using OpenCage services
 
 | File | Brief Description |
 |-----------|-------------------|
-| [opencage-geocoding-api.md](opencage-geocoding-api.md) | Background and key concepts for working with the OpenCage Geocoding API |
-| [opencage-geocoding-api-python.md](opencage-geocoding-api-python.md) | Accessing the OpenCage Geocoding API using python |
+| [opencage-geocoding-api/SKILL.md](opencage-geocoding-api/SKILL.md) | Background and key concepts for working with the OpenCage Geocoding API |
+| [opencage-geocoding-api/references/python.md](opencage-geocoding-api/references/python.md) | Accessing the OpenCage Geocoding API using python |
 
 
 ---
