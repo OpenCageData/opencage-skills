@@ -8,7 +8,7 @@ Agent skills for using OpenCage services
 | [opencage-geocoding-api/references/java.md](opencage-geocoding-api/references/java.md) | Accessing the OpenCage Geocoding API using Java |
 | [opencage-geocoding-api/references/nodejs.md](opencage-geocoding-api/references/nodejs.md) | Accessing the OpenCage Geocoding API using node.js |
 | [opencage-geocoding-api/references/perl.md](opencage-geocoding-api/references/perl.md) | Accessing the OpenCage Geocoding API using Perl |
-| [opencage-geocoding-api/references/php.md](opencage-geocoding-api/references/php.md) | Accessing the OpenCage Geocoding API using PHPn |
+| [opencage-geocoding-api/references/php.md](opencage-geocoding-api/references/php.md) | Accessing the OpenCage Geocoding API using PHP |
 | [opencage-geocoding-api/references/python.md](opencage-geocoding-api/references/python.md) | Accessing the OpenCage Geocoding API using Python |
 | [opencage-geocoding-api/references/ruby.md](opencage-geocoding-api/references/ruby.md) | Accessing the OpenCage Geocoding API using Ruby |
 
