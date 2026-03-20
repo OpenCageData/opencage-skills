@@ -1,6 +1,6 @@
 # opencage-skills
 
-Agent skills for using OpenCage services
+Agent skills for writing software to use OpenCage services.
 
 | File | Brief Description |
 |-----------|-------------------|
@@ -11,7 +11,7 @@ Agent skills for using OpenCage services
 | [opencage-geocoding-api/references/php.md](opencage-geocoding-api/references/php.md) | Accessing the OpenCage Geocoding API using PHP |
 | [opencage-geocoding-api/references/python.md](opencage-geocoding-api/references/python.md) | Accessing the OpenCage Geocoding API using Python |
 | [opencage-geocoding-api/references/ruby.md](opencage-geocoding-api/references/ruby.md) | Accessing the OpenCage Geocoding API using Ruby |
-
+| [opencage-geosearch/SKILL.md](opencage-geosearch/SKILL.md) | Background and key concepts for installing and configuring the OpenCage geosearch/autosuggest service |
 
 ---
 
