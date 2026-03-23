@@ -5,6 +5,7 @@ Agent skills for writing software to use OpenCage services.
 | File | Brief Description |
 |-----------|-------------------|
 | [opencage-geocoding-api/SKILL.md](opencage-geocoding-api/SKILL.md) | Background and key concepts for working with the OpenCage Geocoding API |
+| [opencage-geocoding-api/references/commandline.md](opencage-geocoding-api/references/commandline.md) | Command line utility for accessing the OpenCage Geocoding API |
 | [opencage-geocoding-api/references/java.md](opencage-geocoding-api/references/java.md) | Accessing the OpenCage Geocoding API using Java |
 | [opencage-geocoding-api/references/nodejs.md](opencage-geocoding-api/references/nodejs.md) | Accessing the OpenCage Geocoding API using node.js |
 | [opencage-geocoding-api/references/perl.md](opencage-geocoding-api/references/perl.md) | Accessing the OpenCage Geocoding API using Perl |
