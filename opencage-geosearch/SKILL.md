@@ -12,6 +12,18 @@ description: >-
 
 OpenCage Geosearch is a **JavaScript widget** that provides geographic autosuggest/autocomplete functionality for forms. It converts partial text input into place names — countries, states, regions, cities, towns, villages, and neighbourhoods. It is built on top of Algolia's Autocomplete library.
 
+## Quick Reference
+
+```
+Type:      Front-end JavaScript widget (not a REST API)
+Key:       oc_gs_... (different from Geocoding API key)
+Package:   @opencage/geosearch-bundle (CDN or npm)
+Setup:     opencage.algoliaAutocomplete({ container, plugins: [OpenCageGeoSearchPlugin({ key })] })
+Coords:    params.item.geometry.lat / .lng (in onSelect handler)
+CORS:      MUST register domain in OpenCage dashboard before use
+Covers:    Countries, cities, towns, villages, neighbourhoods — NOT street addresses or postcodes
+```
+
 ## What Geosearch Is NOT
 
 **Geosearch is not the same as the OpenCage Geocoding API.** Key differences:
