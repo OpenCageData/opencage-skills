@@ -5,9 +5,9 @@ description: Reference for working with the OpenCage geocoding API
 
 # OpenCage Geocoding API — General Concepts
 
-Use this skill whenever working with the OpenCage Geocoding API.
+The OpenCage Geocoding API converts addresses to coordinates (forward geocoding) and coordinates to addresses (reverse geocoding) via a REST endpoint returning JSON.
 
-The API supports both forward and reverse geocoding. It is a REST API that returns a JSON response. 
+
 
 ## Forward Geocoding (address → coordinates)
 

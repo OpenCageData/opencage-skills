@@ -5,8 +5,6 @@ description: Reference for installing and configuring the OpenCage geosearch ser
 
 # OpenCage Geosearch — General Concepts
 
-Use this skill whenever working with the OpenCage Geosearch service.
-
 OpenCage Geosearch is a **JavaScript widget** that provides geographic autosuggest/autocomplete functionality for forms. It converts partial text input into place names — countries, states, regions, cities, towns, villages, and neighbourhoods. It is built on top of Algolia's Autocomplete library.
 
 ## What Geosearch Is NOT
