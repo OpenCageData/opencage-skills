@@ -175,6 +175,6 @@ It does **not** return: individual street addresses, postcodes, or road names.
 
 ## Further Reading
 
-- OpenCage Geosearch overview: https://opencagedata.com/geosearch
-- OpenCage Geosearch GitHub (full README and examples): https://github.com/OpenCageData/geosearch/blob/master/README.md
-- OpenCage Pricing: https://opencagedata.com/pricing
+- OpenCage Geosearch overview (feature list, live demo, getting started): https://opencagedata.com/geosearch
+- OpenCage Geosearch GitHub (full README, changelog, and framework-specific examples): https://github.com/OpenCageData/geosearch/blob/master/README.md
+- OpenCage Pricing (free trial limits, paid plan comparison): https://opencagedata.com/pricing
