@@ -270,9 +270,17 @@ Test query that always returns zero results: `q=NOWHERE-INTERESTING`
 
 ## Language-specific SDKs
 
-The OpenCage Geocoding API is language-agnostic — it is a standard HTTPS REST API that can be called from any language or environment. Official SDKs and detailed tutorials are available for many languages (including Python, JavaScript, Ruby, Java, Go, PHP, Perl, and more) at:
+The OpenCage Geocoding API is language-agnostic — it is a standard HTTPS REST API that can be called from any language or environment. For language-specific installation, usage patterns, error handling, and batch geocoding, refer to the appropriate reference file:
 
-https://opencagedata.com/tutorials
+- **Python** — `references/python.md`
+- **Node.js / TypeScript** — `references/nodejs.md`
+- **Ruby** — `references/ruby.md`
+- **PHP** — `references/php.md`
+- **Java** — `references/java.md`
+- **Perl** — `references/perl.md`
+- **Command line (batch CSV processing)** — `references/commandline.md`
+
+Official tutorials for these and other languages are available at: https://opencagedata.com/tutorials
 
 ## Further Reading
 
