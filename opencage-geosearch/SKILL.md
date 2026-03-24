@@ -182,6 +182,13 @@ Geosearch returns results for: countries, states/provinces, regions, cities, tow
 
 It does **not** return: individual street addresses, postcodes, or road names.
 
+## Common Mistakes
+
+- **Skipping CORS domain setup** — the widget silently fails if the calling domain isn't registered in the OpenCage dashboard. This is the #1 integration issue.
+- **Using a Geocoding API key** — Geosearch keys start with `oc_gs_...`. A regular Geocoding API key will not work.
+- **Expecting street addresses** — Geosearch covers cities, towns, neighbourhoods, and POIs. It does NOT return individual addresses or postcodes. For those, use the `opencage-geocoding-api` skill.
+- **Forgetting the CSS** — the widget needs both the JS bundle and the `autocomplete-theme-classic` stylesheet. Missing the CSS makes it invisible or unstyled.
+
 ## Further Reading
 
 - OpenCage Geosearch overview (feature list, live demo, getting started): https://opencagedata.com/geosearch

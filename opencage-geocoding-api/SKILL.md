@@ -242,6 +242,15 @@ The fields present in `components` and `annotations` are not guaranteed to be co
 
 The general rule: **never assume a field will be present**
 
+## Common Mistakes
+
+- **Assuming `components.city` exists** — ocean coordinates have no country, remote islands have no city. Always use safe access (`.get()`, `?.`, `getOrDefault`).
+- **Forgetting `no_annotations=1`** — annotations roughly double response size. Always set this unless you specifically need timezone, currency, etc.
+- **Treating confidence as correctness** — confidence 2 for "Berlin, Germany" doesn't mean the result is wrong. It means Berlin is geographically large. See the Confidence Score section.
+- **Fuzzy-searching with the API** — querying `"par"` will NOT return "Paris, France". This API expects complete addresses. For type-ahead, use the `opencage-geosearch` skill.
+- **Not checking `total_results`** — a 200 response can have zero results. Always check before accessing `results[0]`.
+- **Hardcoding API keys** — use environment variables. See the language-specific reference files for patterns.
+
 ## What This API Is NOT
 
 ### Not browser geolocation
