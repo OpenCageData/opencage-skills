@@ -25,6 +25,7 @@ digraph which_skill {
   "Need street addresses or coordinates?" -> "Use opencage-geocoding-api skill\n(back-end REST API)" [label="yes"];
   "Need street addresses or coordinates?" -> "Neither skill applies" [label="no"];
 }
+```
 
 ## Quick Reference
 
