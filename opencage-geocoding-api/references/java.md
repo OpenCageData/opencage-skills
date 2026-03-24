@@ -1,7 +1,7 @@
 # OpenCage Geocoding API — Java
 
 This skill covers Java-specific usage of the OpenCage Geocoding API.
-For general, language-agnostic concepts (endpoint, parameters, response structure, error codes, confidence scores, annotations, rate limits, test keys), refer to **opencage-geocoding-api.md** first.
+For general, language-agnostic concepts (endpoint, parameters, response structure, error codes, confidence scores, annotations, rate limits, test keys), refer to **opencage-geocoding-api/SKILL.md** first.
 
 ## Installation
 
@@ -105,7 +105,7 @@ if (response == null) {
 }
 ```
 
-Common status codes and their meanings are documented in **opencage-geocoding-api.md**. Key ones to handle:
+Common status codes and their meanings are documented in **opencage-geocoding-api/SKILL.md**. Key ones to handle:
 
 - `200` — OK
 - `401` — Invalid or missing API key
@@ -199,4 +199,4 @@ JOpenCageGeocoder geocoder = new JOpenCageGeocoder(apiKey);
 - OpenCage Java tutorial: https://opencagedata.com/tutorials/geocode-in-java
 - jopencage on Maven Central: https://search.maven.org/artifact/com.opencagedata/jopencage
 - Source code: https://github.com/OpenCageData/jopencage
-- General API reference: **opencage-geocoding-api.md**
+- General API reference: **opencage-geocoding-api/SKILL.md**

@@ -1,13 +1,42 @@
 ---
 name: opencage-geosearch
-description: Reference for installing and configuring the OpenCage geosearch service
+description: >-
+  Use when the user needs geographic place autosuggest or autocomplete on
+  a web page, or mentions "geosearch", "place autocomplete", "OpenCage
+  widget", "oc_gs_ key", or "geographic autosuggest". Also use when
+  integrating a location search widget with Leaflet, OpenLayers, or
+  MapLibre.
 ---
 
 # OpenCage Geosearch — General Concepts
 
-Use this skill whenever working with the OpenCage Geosearch service.
-
 OpenCage Geosearch is a **JavaScript widget** that provides geographic autosuggest/autocomplete functionality for forms. It converts partial text input into place names — countries, states, regions, cities, towns, villages, and neighbourhoods. It is built on top of Algolia's Autocomplete library.
+
+```dot
+digraph which_skill {
+  "User typing partial text in a search box?" [shape=diamond];
+  "Use this skill\n(opencage-geosearch)" [shape=box];
+  "Need street addresses or coordinates?" [shape=diamond];
+  "Use opencage-geocoding-api skill\n(back-end REST API)" [shape=box];
+  "Neither skill applies" [shape=box];
+
+  "User typing partial text in a search box?" -> "Use this skill\n(opencage-geosearch)" [label="yes"];
+  "User typing partial text in a search box?" -> "Need street addresses or coordinates?" [label="no"];
+  "Need street addresses or coordinates?" -> "Use opencage-geocoding-api skill\n(back-end REST API)" [label="yes"];
+  "Need street addresses or coordinates?" -> "Neither skill applies" [label="no"];
+}
+
+## Quick Reference
+
+```
+Type:      Front-end JavaScript widget (not a REST API)
+Key:       oc_gs_... (different from Geocoding API key)
+Package:   @opencage/geosearch-bundle (CDN or npm)
+Setup:     opencage.algoliaAutocomplete({ container, plugins: [OpenCageGeoSearchPlugin({ key })] })
+Coords:    params.item.geometry.lat / .lng (in onSelect handler)
+CORS:      MUST register domain in OpenCage dashboard before use
+Covers:    Countries, cities, towns, villages, neighbourhoods — NOT street addresses or postcodes
+```
 
 ## What Geosearch Is NOT
 
@@ -18,7 +47,7 @@ OpenCage Geosearch is a **JavaScript widget** that provides geographic autosugge
 - Geosearch does **not** cover house addresses, postcodes, or individual roads.
 - Geosearch uses a **different API key** (format: `oc_gs_...`); a Geocoding API key will not work here.
 
-If the task requires converting a complete address or coordinates server-side, use the OpenCage Geocoding API skill instead.
+If the task requires converting a complete address or coordinates server-side, use the `opencage-geocoding-api` skill instead.
 
 ## API Key
 
@@ -167,8 +196,15 @@ Geosearch returns results for: countries, states/provinces, regions, cities, tow
 
 It does **not** return: individual street addresses, postcodes, or road names.
 
+## Common Mistakes
+
+- **Skipping CORS domain setup** — the widget silently fails if the calling domain isn't registered in the OpenCage dashboard. This is the #1 integration issue.
+- **Using a Geocoding API key** — Geosearch keys start with `oc_gs_...`. A regular Geocoding API key will not work.
+- **Expecting street addresses** — Geosearch covers cities, towns, neighbourhoods, and POIs. It does NOT return individual addresses or postcodes. For those, use the `opencage-geocoding-api` skill.
+- **Forgetting the CSS** — the widget needs both the JS bundle and the `autocomplete-theme-classic` stylesheet. Missing the CSS makes it invisible or unstyled.
+
 ## Further Reading
 
-- OpenCage Geosearch overview: https://opencagedata.com/geosearch
-- OpenCage Geosearch GitHub (full README and examples): https://github.com/OpenCageData/geosearch/blob/master/README.md
-- OpenCage Pricing: https://opencagedata.com/pricing
+- OpenCage Geosearch overview (feature list, live demo, getting started): https://opencagedata.com/geosearch
+- OpenCage Geosearch GitHub (full README, changelog, and framework-specific examples): https://github.com/OpenCageData/geosearch/blob/master/README.md
+- OpenCage Pricing (free trial limits, paid plan comparison): https://opencagedata.com/pricing

@@ -35,7 +35,7 @@ Both methods return a list of result dicts matching the structure described in *
 
 ## Passing Optional Parameters
 
-All optional API parameters (documented in opencage-geocoding-api.md) can be passed as keyword arguments:
+All optional API parameters (documented in opencage-geocoding-api/SKILL.md) can be passed as keyword arguments:
 
 ```python
 results = geocoder.geocode(
@@ -98,7 +98,7 @@ except UnknownError as e:
 
 ## Accessing Components Safely
 
-`components` fields are not guaranteed to be present for every location (see opencage-geocoding-api.md — "Results Reflect the Real World"). Always use `.get()`:
+`components` fields are not guaranteed to be present for every location (see opencage-geocoding-api/SKILL.md — "Results Reflect the Real World"). Always use `.get()`:
 
 ```python
 result = results[0]
@@ -190,4 +190,4 @@ geocoder = OpenCageGeocode(os.environ['OPENCAGE_API_KEY'])
 
 - OpenCage Python tutorial: https://opencagedata.com/tutorials/geocode-in-python
 - `opencage` package on PyPI: https://pypi.org/project/opencage/
-- General API reference: **opencage-geocoding-api.md**
+- General API reference: **opencage-geocoding-api/SKILL.md**

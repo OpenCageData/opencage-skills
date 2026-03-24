@@ -1,7 +1,7 @@
 # OpenCage Geocoding API — PHP
 
 This skill covers PHP-specific usage of the OpenCage Geocoding API.
-For general, language-agnostic concepts (endpoint, parameters, response structure, error codes, confidence scores, annotations, rate limits, test keys), refer to **opencage-geocoding-api.md** first.
+For general, language-agnostic concepts (endpoint, parameters, response structure, error codes, confidence scores, annotations, rate limits, test keys), refer to **opencage-geocoding-api/SKILL.md** first.
 
 ## Installation
 
@@ -34,11 +34,11 @@ if ($result && $result['total_results'] > 0) {
 }
 ```
 
-The library returns the raw API response as a PHP associative array. The top-level keys match those described in **opencage-geocoding-api.md** (`status`, `total_results`, `results`, `rate`, etc.). Always check `$result['total_results'] > 0` before accessing `$result['results'][0]`.
+The library returns the raw API response as a PHP associative array. The top-level keys match those described in **opencage-geocoding-api/SKILL.md** (`status`, `total_results`, `results`, `rate`, etc.). Always check `$result['total_results'] > 0` before accessing `$result['results'][0]`.
 
 ## Passing Optional Parameters
 
-Optional API parameters (documented in opencage-geocoding-api.md) are passed as an associative array in the second argument:
+Optional API parameters (documented in opencage-geocoding-api/SKILL.md) are passed as an associative array in the second argument:
 
 ```php
 $result = $geocoder->geocode('Brandenburg Gate', [
@@ -70,7 +70,7 @@ if ($result === null) {
 }
 ```
 
-Common status codes and their meanings are documented in **opencage-geocoding-api.md**. Key ones to handle:
+Common status codes and their meanings are documented in **opencage-geocoding-api/SKILL.md**. Key ones to handle:
 
 - `200` — OK
 - `401` — Invalid or missing API key
@@ -80,7 +80,7 @@ Common status codes and their meanings are documented in **opencage-geocoding-ap
 
 ## Accessing Components Safely
 
-`components` fields are not guaranteed to be present for every location (see opencage-geocoding-api.md — "Results Reflect the Real World"). Use `isset()` or the null coalescing operator:
+`components` fields are not guaranteed to be present for every location (see opencage-geocoding-api/SKILL.md — "Results Reflect the Real World"). Use `isset()` or the null coalescing operator:
 
 ```php
 $components = $result['results'][0]['components'] ?? [];
@@ -151,4 +151,4 @@ $geocoder = new \OpenCage\Geocoder\Geocoder($_ENV['OPENCAGE_API_KEY']);
 - OpenCage PHP tutorial: https://opencagedata.com/tutorials/geocode-in-php
 - `opencage/geocode` on Packagist: https://packagist.org/packages/opencage/geocode
 - Source code: https://github.com/OpenCageData/php-opencage-geocode
-- General API reference: **opencage-geocoding-api.md**
+- General API reference: **opencage-geocoding-api/SKILL.md**

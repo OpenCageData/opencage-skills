@@ -1,7 +1,7 @@
 # OpenCage Geocoding API — Perl
 
 This skill covers Perl-specific usage of the OpenCage Geocoding API.
-For general, language-agnostic concepts (endpoint, parameters, response structure, error codes, confidence scores, annotations, rate limits, test keys), refer to **opencage-geocoding-api.md** first.
+For general, language-agnostic concepts (endpoint, parameters, response structure, error codes, confidence scores, annotations, rate limits, test keys), refer to **opencage-geocoding-api/SKILL.md** first.
 
 ## Installation
 
@@ -43,11 +43,11 @@ if ($response->{total_results} > 0) {
 }
 ```
 
-Both methods return a hashref whose structure matches the raw API response described in **opencage-geocoding-api.md** (`status`, `total_results`, `results`, `rate`). Always check `$response->{total_results} > 0` before accessing `$response->{results}[0]`.
+Both methods return a hashref whose structure matches the raw API response described in **opencage-geocoding-api/SKILL.md** (`status`, `total_results`, `results`, `rate`). Always check `$response->{total_results} > 0` before accessing `$response->{results}[0]`.
 
 ## Passing Optional Parameters
 
-All optional API parameters (documented in opencage-geocoding-api.md) can be passed as additional named arguments:
+All optional API parameters (documented in opencage-geocoding-api/SKILL.md) can be passed as additional named arguments:
 
 ```perl
 my $response = $geocoder->geocode(
@@ -77,7 +77,7 @@ if (!defined $response) {
 }
 ```
 
-Common status codes and their meanings are documented in **opencage-geocoding-api.md**. Key ones to handle:
+Common status codes and their meanings are documented in **opencage-geocoding-api/SKILL.md**. Key ones to handle:
 
 - `200` — OK
 - `401` — Invalid or missing API key
@@ -87,7 +87,7 @@ Common status codes and their meanings are documented in **opencage-geocoding-ap
 
 ## Accessing Components Safely
 
-`components` fields are not guaranteed to be present for every location (see opencage-geocoding-api.md — "Results Reflect the Real World"). Use the `//` defined-or operator for safe access:
+`components` fields are not guaranteed to be present for every location (see opencage-geocoding-api/SKILL.md — "Results Reflect the Real World"). Use the `//` defined-or operator for safe access:
 
 ```perl
 my $result     = $response->{results}[0];
@@ -202,4 +202,4 @@ export OPENCAGE_API_KEY=your-api-key-here
 - OpenCage Perl tutorial: https://opencagedata.com/tutorials/geocode-in-perl
 - `Geo::Coder::OpenCage` on CPAN: https://metacpan.org/pod/Geo::Coder::OpenCage
 - Source code: https://github.com/OpenCageData/perl-Geo-Coder-OpenCage
-- General API reference: **opencage-geocoding-api.md**
+- General API reference: **opencage-geocoding-api/SKILL.md**

@@ -1,7 +1,7 @@
 # OpenCage Geocoding API — Ruby
 
 This skill covers Ruby-specific usage of the OpenCage Geocoding API.
-For general, language-agnostic concepts (endpoint, parameters, response structure, error codes, confidence scores, annotations, rate limits, test keys), refer to **opencage-geocoding-api.md** first.
+For general, language-agnostic concepts (endpoint, parameters, response structure, error codes, confidence scores, annotations, rate limits, test keys), refer to **opencage-geocoding-api/SKILL.md** first.
 
 ## Installation
 
@@ -41,7 +41,7 @@ puts result.confidence  # integer 1–10
 
 ## Passing Optional Parameters
 
-All optional API parameters (documented in opencage-geocoding-api.md) can be passed as keyword arguments:
+All optional API parameters (documented in opencage-geocoding-api/SKILL.md) can be passed as keyword arguments:
 
 ```ruby
 result = geocoder.geocode(
@@ -76,7 +76,7 @@ puts result.annotations['timezone']['name']  # e.g. "Europe/London"
 puts result.annotations['currency']['name']
 ```
 
-`components` fields are not guaranteed to be present for every location (see opencage-geocoding-api.md — "Results Reflect the Real World"). Access them carefully and provide fallbacks.
+`components` fields are not guaranteed to be present for every location (see opencage-geocoding-api/SKILL.md — "Results Reflect the Real World"). Access them carefully and provide fallbacks.
 
 ## Error Handling
 
@@ -193,4 +193,4 @@ geocoder = OpenCage::Geocoder.new(api_key: ENV.fetch('OPENCAGE_API_KEY'))
 - OpenCage Ruby tutorial: https://opencagedata.com/tutorials/geocode-in-ruby
 - `opencage-geocoder` gem on RubyGems: https://rubygems.org/gems/opencage-geocoder
 - Source code: https://github.com/OpenCageData/ruby-opencage-geocoder
-- General API reference: **opencage-geocoding-api.md**
+- General API reference: **opencage-geocoding-api/SKILL.md**

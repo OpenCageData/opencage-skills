@@ -1,13 +1,42 @@
 ---
 name: opencage-geocoding-api
-description: Reference for working with the OpenCage geocoding API
+description: >-
+  Use when the user needs to forward geocode (address to coordinates),
+  reverse geocode (coordinates to address), or work with geocoding API
+  responses. Also use when they mention "OpenCage", geocoding rate limits,
+  confidence scores, address components, or need a geocoding SDK in Python,
+  Node.js, Ruby, PHP, Java, or Perl.
 ---
 
 # OpenCage Geocoding API — General Concepts
 
-Use this skill whenever working with the OpenCage Geocoding API.
+The OpenCage Geocoding API converts addresses to coordinates (forward geocoding) and coordinates to addresses (reverse geocoding) via a REST endpoint returning JSON.
 
-The API supports both forward and reverse geocoding. It is a REST API that returns a JSON response. 
+```dot
+digraph which_skill {
+  "User typing partial text in a search box?" [shape=diamond];
+  "Use opencage-geosearch skill\n(front-end JS widget)" [shape=box];
+  "Need street addresses or coordinates?" [shape=diamond];
+  "Use this skill\n(opencage-geocoding-api)" [shape=box];
+  "Neither skill applies" [shape=box];
+
+  "User typing partial text in a search box?" -> "Use opencage-geosearch skill\n(front-end JS widget)" [label="yes"];
+  "User typing partial text in a search box?" -> "Need street addresses or coordinates?" [label="no"];
+  "Need street addresses or coordinates?" -> "Use this skill\n(opencage-geocoding-api)" [label="yes"];
+  "Need street addresses or coordinates?" -> "Neither skill applies" [label="no"];
+}
+
+## Quick Reference
+
+```
+Endpoint:  https://api.opencagedata.com/geocode/v1/json
+Auth:      key=YOUR-API-KEY (30 chars, from dashboard)
+Forward:   q=Berlin,+Germany      → results[0].geometry.{lat,lng}
+Reverse:   q=52.517,13.389        → results[0].formatted
+Always:    no_annotations=1 unless you need annotations
+Safe access: components fields are NOT guaranteed — use .get() / ?.
+Status:    check status.code first (200 = OK, 402 = quota, 429 = rate limit)
+```
 
 ## Forward Geocoding (address → coordinates)
 
@@ -28,24 +57,7 @@ Reverse geocoding returns a list of 0 or 1 results (never more than one).
 
 ### Optional API parameters
 
-The OpenCage Geocoding API can be called with various optional parameters:
-
-| Parameter | Brief Description | Example Usage |
-|-----------|-------------------|---------------|
-| `abbrv` | Abbreviates and shortens the `formatted` string in the response | `abbrv=1` |
-| `address_only` | Excludes POI names from the `formatted` string, returning only the address | `address_only=1` |
-| `add_request` | Includes the original request parameters in the response (useful for debugging) | `add_request=1` |
-| `bounds` | Forward geocoding only. Restricts results to a bounding box defined by SW and NE corners (min lon, min lat, max lon, max lat) | `bounds=-0.563160,51.280430,0.278970,51.683979` |
-| `countrycode` | Forward geocoding only. Restricts results to one or more countries via ISO 3166-1 Alpha-2 codes | `countrycode=de` or `countrycode=ca,us` |
-| `jsonp` | Wraps the returned JSON with a function name (JSONP callback) | `jsonp=myfuncname` |
-| `language` | Specifies preferred response language using an IETF language tag, or `native` for local language | `language=de` |
-| `limit` | Forward geocoding only. Sets the maximum number of results returned (default: 10, max: 100) | `limit=1` |
-| `no_annotations` | Suppresses the `annotations` block from results to reduce response size and improve speed | `no_annotations=1` |
-| `no_dedupe` | Disables deduplication of results | `no_dedupe=1` |
-| `no_record` | Prevents the query from being logged (for privacy-sensitive use cases) | `no_record=1` |
-| `pretty` | Pretty-prints the JSON response for easier reading and debugging | `pretty=1` |
-| `proximity` | Forward geocoding only. Biases results toward the specified lat/lon coordinate | `proximity=52.5432379,13.4142133` |
-| `roadinfo` | Changes geocoder behaviour to snap to the nearest road and returns extended road/driving info in annotations | `roadinfo=1` |
+Most-used: `no_annotations=1` (always set unless you need annotations), `countrycode`, `language`, `limit`, `bounds`, `proximity`. Full table in `references/api-details.md`.
 
 ## Getting an API Key
 
@@ -143,90 +155,28 @@ For `402` errors, free-trial and one-time purchase customers can check `rate.rem
 
 ## API Rate Limits
 
-| Plan | Daily quota | `rate` in response |
-|------|-------------|-------------------|
-| Free trial | 2,500 req/day | Yes |
-| One-time purchase | Fixed quota | Yes |
-| Subscription | No hard limit | No |
-
-The `rate` object is only present in responses for free-trial and one-time purchase customers, whose quotas are enforced. Subscription customers have no hard limits, so their responses do not include a `rate` field — do not assume it will always be present.
-
-```json
-{
-  "rate": {
-    "limit": 2500,
-    "remaining": 2498,
-    "reset": 1605312000
-  },
-  "results": [...],
-  "status": {
-    "code": 200,
-    "message": "OK"
-  },
-  "total_results": 1,
-
-}
-```
+Free trial: 2,500 req/day, 1 req/s. Subscription plans have no hard limit. The `rate` object is only present in responses for free-trial and one-time purchase plans — do not assume it exists. Full details and example in `references/api-details.md`.
 
 ## Annotations
 
-By default every result includes an `annotations` object with supplementary data derived from the result's coordinates (unless `no_annotations=1` is passed). Annotations are **not** properties of the input query — they describe what is true at the returned location.
-
-Example annotations included by default:
-
-| Annotation | Description |
-|------------|-------------|
-| `timezone` | Timezone name, UTC offset |
-| `currency` | Local currency name, symbol, ISO code |
-| `callingcode` | International dialling code |
-| `flag` | Country emoji flag |
-| `geohash` | Geohash of the result centre point |
-| `DMS` | Coordinates in degree/minute/second format |
-| `Mercator` | Mercator projection coordinates |
-| `MGRS` | Military Grid Reference System code |
-| `OSM` | OpenStreetMap view/edit URLs |
-| `wikidata` | Wikidata item identifier |
-| `what3words` | Three-word address |
-| `sun` | Sunrise and sunset times |
-| `qibla` | Direction to Mecca |
-| `FIPS` | US Federal Information Processing Standards codes |
-| `NUTS` | EU territorial unit codes |
-| `UN_M49` | UN regional and statistical codes |
-
-Some annotations are only available to paying customers and must be enabled on request (e.g. `H3`, `UN/LOCODE`). Road-specific data requires passing `roadinfo=1`.
-
-### Turn off annotations when not needed
-
-Annotations add size to the response and require extra processing. **Always set `no_annotations=1` if you don't need them** — this reduces response size and improves latency.
+By default every result includes an `annotations` object with supplementary data (timezone, currency, geohash, sun times, etc.) derived from the result's coordinates. **Always set `no_annotations=1` if you don't need them** — this reduces response size and improves latency. Full annotation list in `references/api-details.md`.
 
 ## Confidence Score
 
-The confidence score (0–10) measures the **size of the bounding box** of the matched place — it is **not** a measure of correctness or relevance. A high score means the result is geographically small (e.g. a building); a low score means it is geographically large (e.g. a country). The API can be completely certain it found the right place and still return a low confidence score.
-
-For example, geocoding `"Berlin, Germany"` returns a confidence of **2**, because Berlin is a large city — its bounding box spans many kilometres. That low score doesn't mean the result is wrong; it means the matched place is large. By contrast, geocoding a specific street address in Berlin might return a confidence of **9** or **10**.
-
-| Score | Implied bounding box size |
-|-------|--------------------------|
-| 10 | < 0.25 km (building/exact address) |
-| 9 | < 0.5 km (street level) |
-| 7–8 | < 1–5 km (neighborhood/district) |
-| 4–6 | City or region level |
-| 1–3 | Country or large area |
-| 0 | No bounding box available |
-
-Do not use the confidence score for ranking — results are already ordered by relevance. Use it to filter out results that are too coarse for your use case.
-
-To understand *what type of place* was matched, check `components["_type"]` instead of relying on the confidence score. Common values include `"city"`, `"town"`, `"village"`, `"road"`, `"building"`, `"postcode"`, `"country"`, `"state"`, and `"neighbourhood"`.
+The confidence score (0–10) measures the **size of the bounding box** — it is **not** correctness. "Berlin, Germany" returns confidence 2 because Berlin is large, not because the result is wrong. Do not use it for ranking (results are already relevance-sorted). To identify place type, check `components["_type"]` instead. Full score table in `references/api-details.md`.
 
 ## Results Reflect the Real World — Structure Varies
 
-The fields present in `components` and `annotations` are not guaranteed to be consistent across all results. The world is not uniform, and the API response reflects that.
+**Never assume a field will be present.** Components and annotations vary by location — ocean coordinates have no country, remote islands have no city, `FIPS` codes only exist in the US, `NUTS` only in the EU. Always use safe access patterns.
 
-**Components vary by location.** Not every place has every administrative subdivision, and some coordinates belong to no country at all. For example, reverse geocoding a point in the middle of the ocean will not return a `country_code` — there is no country there. Similarly, a result for a remote island may have a `country` but no `city`, `state`, or `postcode`.
+## Common Mistakes
 
-**Annotations vary by location.** Not every annotation is available everywhere. `FIPS` codes only exist in the United States. `NUTS` codes only exist in the EU. `qibla` is meaningless at the poles. `roadinfo` requires road data to exist for that area.
-
-The general rule: **never assume a field will be present**
+- **Assuming `components.city` exists** — ocean coordinates have no country, remote islands have no city. Always use safe access (`.get()`, `?.`, `getOrDefault`).
+- **Forgetting `no_annotations=1`** — annotations roughly double response size. Always set this unless you specifically need timezone, currency, etc.
+- **Treating confidence as correctness** — confidence 2 for "Berlin, Germany" doesn't mean the result is wrong. It means Berlin is geographically large. See the Confidence Score section.
+- **Fuzzy-searching with the API** — querying `"par"` will NOT return "Paris, France". This API expects complete addresses. For type-ahead, use the `opencage-geosearch` skill.
+- **Not checking `total_results`** — a 200 response can have zero results. Always check before accessing `results[0]`.
+- **Hardcoding API keys** — use environment variables. See the language-specific reference files for patterns.
 
 ## What This API Is NOT
 
@@ -237,7 +187,7 @@ The OpenCage API does not determine a user's location from their device, browser
 The API does not infer location from an IP address. It converts addresses to coordinates (or vice versa) — it has no concept of the caller's network location.
 
 ### Not location autosuggest / autocomplete
-Forward geocoding expects a complete (or near-complete) address or place name. It does **not** do fuzzy or prefix matching — querying `"par"` will not return `"Paris, France"`. For type-ahead / autocomplete / autosuggest functionality, use the separate [OpenCage Geosearch service](https://opencagedata.com/geosearch) instead.
+Forward geocoding expects a complete (or near-complete) address or place name. It does **not** do fuzzy or prefix matching — querying `"par"` will not return `"Paris, France"`. For type-ahead / autocomplete / autosuggest functionality, use the `opencage-geosearch` skill instead.
 
 ---
 
@@ -264,9 +214,17 @@ Test query that always returns zero results: `q=NOWHERE-INTERESTING`
 
 ## Language-specific SDKs
 
-The OpenCage Geocoding API is language-agnostic — it is a standard HTTPS REST API that can be called from any language or environment. Official SDKs and detailed tutorials are available for many languages (including Python, JavaScript, Ruby, Java, Go, PHP, Perl, and more) at:
+The OpenCage Geocoding API is language-agnostic — it is a standard HTTPS REST API that can be called from any language or environment. For detailed parameter tables, annotations, confidence scores, and rate limits, see `references/api-details.md`. For language-specific usage, refer to the appropriate reference file:
 
-https://opencagedata.com/tutorials
+- **Python** — `references/python.md`
+- **Node.js / TypeScript** — `references/nodejs.md`
+- **Ruby** — `references/ruby.md`
+- **PHP** — `references/php.md`
+- **Java** — `references/java.md`
+- **Perl** — `references/perl.md`
+- **Command line (batch CSV processing)** — `references/commandline.md`
+
+Official tutorials for these and other languages are available at: https://opencagedata.com/tutorials
 
 ## Further Reading
 

@@ -1,7 +1,7 @@
 # OpenCage Geocoding API — Node.js
 
 This skill covers Node.js-specific usage of the OpenCage Geocoding API.
-For general, language-agnostic concepts (endpoint, parameters, response structure, error codes, confidence scores, annotations, rate limits, test keys), refer to **opencage-geocoding-api.md** first.
+For general, language-agnostic concepts (endpoint, parameters, response structure, error codes, confidence scores, annotations, rate limits, test keys), refer to **opencage-geocoding-api/SKILL.md** first.
 
 ## Installation
 
@@ -60,7 +60,7 @@ The library reads the API key from the `OPENCAGE_API_KEY` environment variable a
 
 ## Passing Optional Parameters
 
-All optional API parameters (documented in opencage-geocoding-api.md) are passed as properties of the options object:
+All optional API parameters (documented in opencage-geocoding-api/SKILL.md) are passed as properties of the options object:
 
 ```javascript
 const data = await opencage.geocode({
@@ -90,7 +90,7 @@ if (data.status.code !== 200) {
 }
 ```
 
-Common status codes and their meanings are documented in **opencage-geocoding-api.md**. Key ones to handle:
+Common status codes and their meanings are documented in **opencage-geocoding-api/SKILL.md**. Key ones to handle:
 
 - `200` — OK
 - `401` — Invalid or missing API key
@@ -147,7 +147,7 @@ if (data.results.length > 0) {
 
 ## Accessing Components Safely
 
-`components` fields are not guaranteed to be present for every location (see opencage-geocoding-api.md — "Results Reflect the Real World"). Use optional chaining and nullish coalescing:
+`components` fields are not guaranteed to be present for every location (see opencage-geocoding-api/SKILL.md — "Results Reflect the Real World"). Use optional chaining and nullish coalescing:
 
 ```javascript
 const components = data.results[0]?.components ?? {};
@@ -222,4 +222,4 @@ Never commit `.env` files to version control. In production, set the environment
 - OpenCage Node.js tutorial: https://opencagedata.com/tutorials/geocode-in-nodejs
 - `opencage-api-client` on npm: https://www.npmjs.com/package/opencage-api-client
 - Source code: https://github.com/tsamaya/opencage-api-client
-- General API reference: **opencage-geocoding-api.md**
+- General API reference: **opencage-geocoding-api/SKILL.md**
