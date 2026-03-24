@@ -13,19 +13,13 @@ description: >-
 
 The OpenCage Geocoding API converts addresses to coordinates (forward geocoding) and coordinates to addresses (reverse geocoding) via a REST endpoint returning JSON.
 
-```dot
-digraph which_skill {
-  "User typing partial text in a search box?" [shape=diamond];
-  "Use opencage-geosearch skill\n(front-end JS widget)" [shape=box];
-  "Need street addresses or coordinates?" [shape=diamond];
-  "Use this skill\n(opencage-geocoding-api)" [shape=box];
-  "Neither skill applies" [shape=box];
-
-  "User typing partial text in a search box?" -> "Use opencage-geosearch skill\n(front-end JS widget)" [label="yes"];
-  "User typing partial text in a search box?" -> "Need street addresses or coordinates?" [label="no"];
-  "Need street addresses or coordinates?" -> "Use this skill\n(opencage-geocoding-api)" [label="yes"];
-  "Need street addresses or coordinates?" -> "Neither skill applies" [label="no"];
-}
+```mermaid
+graph TD
+    A{User typing partial text in a search box?}
+    A -- yes --> B[Use opencage-geosearch skill\nfront-end JS widget]
+    A -- no --> C{Need street addresses or coordinates?}
+    C -- yes --> D[Use this skill\nopenpage-geocoding-api]
+    C -- no --> E[Neither skill applies]
 ```
 
 ## Quick Reference
