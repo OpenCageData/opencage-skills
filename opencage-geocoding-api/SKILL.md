@@ -241,7 +241,7 @@ The OpenCage API does not determine a user's location from their device, browser
 The API does not infer location from an IP address. It converts addresses to coordinates (or vice versa) — it has no concept of the caller's network location.
 
 ### Not location autosuggest / autocomplete
-Forward geocoding expects a complete (or near-complete) address or place name. It does **not** do fuzzy or prefix matching — querying `"par"` will not return `"Paris, France"`. For type-ahead / autocomplete / autosuggest functionality, use the separate [OpenCage Geosearch service](https://opencagedata.com/geosearch) instead.
+Forward geocoding expects a complete (or near-complete) address or place name. It does **not** do fuzzy or prefix matching — querying `"par"` will not return `"Paris, France"`. For type-ahead / autocomplete / autosuggest functionality, use the `opencage-geosearch` skill instead.
 
 ---
 
