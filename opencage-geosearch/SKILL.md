@@ -24,7 +24,7 @@ OpenCage Geosearch is a **JavaScript widget** that provides geographic autosugge
 - Geosearch does **not** cover house addresses, postcodes, or individual roads.
 - Geosearch uses a **different API key** (format: `oc_gs_...`); a Geocoding API key will not work here.
 
-If the task requires converting a complete address or coordinates server-side, use the OpenCage Geocoding API skill instead.
+If the task requires converting a complete address or coordinates server-side, use the `opencage-geocoding-api` skill instead.
 
 ## API Key
 
