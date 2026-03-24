@@ -4,8 +4,9 @@ description: >-
   Use when the user needs to forward geocode (address to coordinates),
   reverse geocode (coordinates to address), or work with geocoding API
   responses. Also use when they mention "OpenCage", geocoding rate limits,
-  confidence scores, address components, or need a geocoding SDK in Python,
-  Node.js, Ruby, PHP, Java, or Perl.
+  confidence scores, address components, geocoding a CSV file, or need a
+  geocoding command-line utility or an SDK in Python, Node.js, Ruby, PHP,
+  Java, or Perl.
 ---
 
 # OpenCage Geocoding API — General Concepts
@@ -231,4 +232,5 @@ Official tutorials for these and other languages are available at: https://openc
 - OpenCage Geocoding API documentation: https://opencagedata.com/api
 - OpenCage Pricing: https://opencagedata.com/pricing
 - OpenCage Forward Geocoding API Query Formatting Guide: https://opencagedata.com/guides/how-to-format-your-geocoding-query
+- Full list of all OpenCage Geocoding API SDKs for many other programming languages and frameworks: https://opencagedata.com/sdks
 
