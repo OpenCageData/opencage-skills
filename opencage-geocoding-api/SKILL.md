@@ -163,8 +163,7 @@ The `rate` object is only present in responses for free-trial and one-time purch
     "code": 200,
     "message": "OK"
   },
-  "total_results": 1,
-
+  "total_results": 1
 }
 ```
 
