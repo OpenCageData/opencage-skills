@@ -1,6 +1,14 @@
 ---
 name: opencage-geosearch
-description: Reference for installing and configuring the OpenCage geosearch service
+description: >-
+  This skill should be used when the user needs to add geographic place
+  autosuggest or autocomplete to a web page using the OpenCage Geosearch
+  JavaScript widget. Covers installation (CDN and npm), configuration options
+  (bounds, countrycode, proximity, language), event handlers (onSelect,
+  onActive, onSubmit), extracting coordinates from selected results, CORS
+  domain setup, and integration with Leaflet, OpenLayers, or MapLibre maps.
+  Use when the user mentions "geosearch", "place autocomplete", "OpenCage
+  widget", "oc_gs_ key", or "geographic autosuggest".
 ---
 
 # OpenCage Geosearch — General Concepts

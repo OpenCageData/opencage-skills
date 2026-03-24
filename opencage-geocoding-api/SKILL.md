@@ -1,6 +1,13 @@
 ---
 name: opencage-geocoding-api
-description: Reference for working with the OpenCage geocoding API
+description: >-
+  This skill should be used when working with the OpenCage Geocoding API,
+  including forward geocoding (converting addresses or place names to
+  latitude/longitude coordinates), reverse geocoding (converting coordinates
+  to addresses), handling geocoding API responses, managing API keys,
+  batch geocoding, or integrating the OpenCage SDK in Python, Node.js, Ruby,
+  PHP, Java, or Perl. Also relevant when the user asks about geocoding rate
+  limits, confidence scores, or address component parsing.
 ---
 
 # OpenCage Geocoding API — General Concepts
