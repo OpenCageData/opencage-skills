@@ -12,19 +12,13 @@ description: >-
 
 OpenCage Geosearch is a **JavaScript widget** that provides geographic autosuggest/autocomplete functionality for forms. It converts partial text input into place names — countries, states, regions, cities, towns, villages, and neighbourhoods. It is built on top of Algolia's Autocomplete library.
 
-```dot
-digraph which_skill {
-  "User typing partial text in a search box?" [shape=diamond];
-  "Use this skill\n(opencage-geosearch)" [shape=box];
-  "Need street addresses or coordinates?" [shape=diamond];
-  "Use opencage-geocoding-api skill\n(back-end REST API)" [shape=box];
-  "Neither skill applies" [shape=box];
-
-  "User typing partial text in a search box?" -> "Use this skill\n(opencage-geosearch)" [label="yes"];
-  "User typing partial text in a search box?" -> "Need street addresses or coordinates?" [label="no"];
-  "Need street addresses or coordinates?" -> "Use opencage-geocoding-api skill\n(back-end REST API)" [label="yes"];
-  "Need street addresses or coordinates?" -> "Neither skill applies" [label="no"];
-}
+```mermaid
+graph TD
+    A{User typing partial text\nin a search box?}
+    A -- yes --> B[Use this skill\nopenpage-geosearch]
+    A -- no --> C{Need street addresses\nor coordinates?}
+    C -- yes --> D[Use opencage-geocoding-api skill\nback-end REST API]
+    C -- no --> E[Neither skill applies]
 ```
 
 ## Quick Reference
