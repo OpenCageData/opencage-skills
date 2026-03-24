@@ -14,8 +14,6 @@ description: >-
 
 The OpenCage Geocoding API converts addresses to coordinates (forward geocoding) and coordinates to addresses (reverse geocoding) via a REST endpoint returning JSON.
 
-
-
 ## Forward Geocoding (address → coordinates)
 
 Forward Geocoding returns a list of 0 or more results
