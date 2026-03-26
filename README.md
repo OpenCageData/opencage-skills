@@ -2,6 +2,10 @@
 
 Agent skills for writing software to use OpenCage services.
 
+See [install.md](install.md) for setup instructions.
+
+## Directory layout / files
+
 | File | Brief Description |
 |-----------|-------------------|
 | [opencage-geocoding-api/SKILL.md](opencage-geocoding-api/SKILL.md) | Background and key concepts for working with the OpenCage Geocoding API |
