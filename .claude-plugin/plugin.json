@@ -1,0 +1,20 @@
+{
+  "name": "opencage",
+  "description": "Skills for working with OpenCage geocoding API and geosearch widget",
+  "version": "1.0.0",
+  "author": {
+    "name": "OpenCage GmbH",
+    "url": "https://opencagedata.com"
+  },
+  "homepage": "https://github.com/OpenCageData/opencage-skills",
+  "repository": "https://github.com/OpenCageData/opencage-skills",
+  "license": "MIT",
+  "keywords": [
+    "geocoding",
+    "geosearch",
+    "opencage",
+    "maps",
+    "coordinates",
+    "autosuggest"
+  ]
+}

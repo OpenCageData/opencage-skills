@@ -1,99 +1,54 @@
-# Installing the OpenCage Agent Skills
+# Installation
 
-This repository contains two Claude Code agent skills:
-
-| Skill | Purpose |
-|-------|---------|
-| `opencage-geocoding-api` | Forward/reverse geocoding via the OpenCage REST API |
-| `opencage-geosearch` | Geographic autosuggest/autocomplete JavaScript widget |
-
-## Prerequisites
-
-- [Claude Code](https://claude.ai/code) installed and configured
-- An OpenCage account with the appropriate API key(s):
-  - **Geocoding API key** (30 characters) — from [opencagedata.com/dashboard](https://opencagedata.com/dashboard)
-  - **Geosearch key** (`oc_gs_...` format) — from [opencagedata.com/geosearch](https://opencagedata.com/geosearch) — this is a different key from the geocoding key
-
-## Installation
-
-### Option A: Install all skills globally (recommended)
-
-Clone the repository directly into your personal Claude Code skills directory so the skills are available in every project:
+## Claude Code
 
 ```bash
-git clone https://github.com/OpenCageData/opencage-skills.git ~/.claude/skills/opencage-skills
+/plugin marketplace add OpenCageData/opencage-skills
+/plugin install opencage@opencage-skills
 ```
 
-### Option B: Install a single skill globally
+Then restart Claude Code or run `/reload-plugins`.
 
-If you only need one skill:
+To make the plugin available to your whole team, add to your project's `.claude/settings.json`:
+
+```json
+{
+  "extraKnownMarketplaces": {
+    "opencage-skills": {
+      "source": {"source": "github", "repo": "OpenCageData/opencage-skills"}
+    }
+  }
+}
+```
+
+## Gemini CLI
 
 ```bash
-# Geocoding API skill only
-git clone --no-checkout https://github.com/OpenCageData/opencage-skills.git /tmp/opencage-skills
-cd /tmp/opencage-skills && git checkout HEAD -- opencage-geocoding-api
-cp -r opencage-geocoding-api ~/.claude/skills/
-cd && rm -rf /tmp/opencage-skills
+gemini extensions install https://github.com/OpenCageData/opencage-skills
 ```
 
-Or simply clone the full repo and copy the skill directory you want:
+## Codex
 
-```bash
-git clone https://github.com/OpenCageData/opencage-skills.git /tmp/opencage-skills
-cp -r /tmp/opencage-skills/opencage-geocoding-api ~/.claude/skills/
-# and/or
-cp -r /tmp/opencage-skills/opencage-geosearch ~/.claude/skills/
-rm -rf /tmp/opencage-skills
-```
-
-### Option C: Install at project level
-
-To make the skills available only within a specific project:
-
-```bash
-mkdir -p /path/to/your/project/.claude/skills
-cp -r opencage-geocoding-api /path/to/your/project/.claude/skills/
-cp -r opencage-geosearch /path/to/your/project/.claude/skills/
-```
-
-### Option D: Keep skills up to date with a git submodule
-
-Add this repository as a submodule so you can pull updates:
-
-```bash
-cd /path/to/your/project
-git submodule add https://github.com/OpenCageData/opencage-skills.git .claude/skills/opencage-skills
-```
-
-Claude Code will discover the skills inside the submodule automatically.
-
-## Verifying installation
-
-Once installed, Claude Code will automatically load the relevant skill when you ask about geocoding or geosearch. You can also invoke them explicitly:
+Add to your project's `codex.md` or agent instructions:
 
 ```
-/opencage-geocoding-api
-/opencage-geosearch
+Fetch and follow instructions from
+https://raw.githubusercontent.com/OpenCageData/opencage-skills/refs/heads/master/skills/opencage-geocoding-api/SKILL.md
+https://raw.githubusercontent.com/OpenCageData/opencage-skills/refs/heads/master/skills/opencage-geosearch/SKILL.md
 ```
 
-Run `/help` to confirm both skills appear in the available commands list.
+## Other agents
 
-## Permissions
+The skills are standard markdown files. Point your agent at the relevant file:
 
-The skills need to fetch documentation and make API calls to `opencagedata.com`. The `.claude/settings.local.json` files included in this repository grant the required permissions automatically when the skills are loaded from their directory. No manual permission setup is required.
+- **Geocoding API:** `skills/opencage-geocoding-api/SKILL.md`
+- **Geosearch widget:** `skills/opencage-geosearch/SKILL.md`
 
-## How the skills are triggered
+Each `SKILL.md` has a YAML frontmatter `description` field explaining when to use it. The `references/` directory under the geocoding skill contains language-specific SDK guides (Python, Node.js, Ruby, PHP, Java, Perl, and command-line).
 
-Claude Code loads the appropriate skill automatically based on context:
+Clone the repo and point your agent at the files, or fetch them directly:
 
-- **`opencage-geocoding-api`** — triggered when you ask about forward/reverse geocoding, address lookup, coordinates, confidence scores, geocoding a CSV, or using the OpenCage API in Python, Node.js, Ruby, PHP, Java, or Perl.
-- **`opencage-geosearch`** — triggered when you ask about place autocomplete, autosuggest on a web page, or integrating a location search widget with Leaflet, OpenLayers, or MapLibre.
-
-```mermaid
-graph TD
-    A{User typing partial text in a search box?}
-    A -- yes --> B[opencage-geosearch\nJS widget / front-end]
-    A -- no --> C{Need street addresses or coordinates?}
-    C -- yes --> D[opencage-geocoding-api\nREST API / back-end]
-    C -- no --> E[Neither skill needed]
+```
+https://raw.githubusercontent.com/OpenCageData/opencage-skills/refs/heads/master/skills/opencage-geocoding-api/SKILL.md
+https://raw.githubusercontent.com/OpenCageData/opencage-skills/refs/heads/master/skills/opencage-geosearch/SKILL.md
 ```

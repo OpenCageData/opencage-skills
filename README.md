@@ -1,22 +1,55 @@
 # opencage-skills
 
-Agent skills for writing software to use OpenCage services.
+Agent skills for working with OpenCage geocoding and geosearch services. These skills give any AI coding agent the context it needs to integrate with the OpenCage APIs correctly — including endpoint details, SDK usage patterns, error handling, and common pitfalls.
 
-See [install.md](install.md) for setup instructions.
+The skills are plain markdown files that work with any agent that can read documentation. First-class installation is provided for Claude Code via its plugin system.
 
-## Directory layout / files
+## Skills
 
-| File | Brief Description |
-|-----------|-------------------|
-| [opencage-geocoding-api/SKILL.md](opencage-geocoding-api/SKILL.md) | Background and key concepts for working with the OpenCage Geocoding API |
-| [opencage-geocoding-api/references/commandline.md](opencage-geocoding-api/references/commandline.md) | Command line utility for accessing the OpenCage Geocoding API |
-| [opencage-geocoding-api/references/java.md](opencage-geocoding-api/references/java.md) | Accessing the OpenCage Geocoding API using Java |
-| [opencage-geocoding-api/references/nodejs.md](opencage-geocoding-api/references/nodejs.md) | Accessing the OpenCage Geocoding API using node.js |
-| [opencage-geocoding-api/references/perl.md](opencage-geocoding-api/references/perl.md) | Accessing the OpenCage Geocoding API using Perl |
-| [opencage-geocoding-api/references/php.md](opencage-geocoding-api/references/php.md) | Accessing the OpenCage Geocoding API using PHP |
-| [opencage-geocoding-api/references/python.md](opencage-geocoding-api/references/python.md) | Accessing the OpenCage Geocoding API using Python |
-| [opencage-geocoding-api/references/ruby.md](opencage-geocoding-api/references/ruby.md) | Accessing the OpenCage Geocoding API using Ruby |
-| [opencage-geosearch/SKILL.md](opencage-geosearch/SKILL.md) | Background and key concepts for installing and configuring the OpenCage geosearch/autosuggest service |
+| Skill | Purpose |
+|-------|---------|
+| `opencage-geocoding-api` | Forward/reverse geocoding via the OpenCage REST API |
+| `opencage-geosearch` | Geographic autosuggest/autocomplete JavaScript widget |
+
+### Geocoding API skill
+
+Use when you need forward geocoding (address to coordinates), reverse geocoding (coordinates to address), or help working with geocoding API responses. Covers Python, Node.js, Ruby, PHP, Java, Perl, and command-line usage.
+
+Includes language-specific reference files:
+
+| Reference | Description |
+|-----------|-------------|
+| `references/api-details.md` | Full API parameter and response reference |
+| `references/python.md` | Python SDK usage |
+| `references/nodejs.md` | Node.js SDK usage |
+| `references/ruby.md` | Ruby SDK usage |
+| `references/php.md` | PHP SDK usage |
+| `references/java.md` | Java SDK usage |
+| `references/perl.md` | Perl SDK usage |
+| `references/commandline.md` | Command-line batch CSV processing |
+
+### Geosearch skill
+
+Use when you need geographic place autosuggest or autocomplete on a web page, or are integrating a location search widget with Leaflet, OpenLayers, or MapLibre.
+
+```mermaid
+graph TD
+    A{User typing partial text in a search box?}
+    A -- yes --> B[opencage-geosearch\nJS widget / front-end]
+    A -- no --> C{Need street addresses or coordinates?}
+    C -- yes --> D[opencage-geocoding-api\nREST API / back-end]
+    C -- no --> E[Neither skill needed]
+```
+
+## Installation
+
+See [install.md](install.md) for setup instructions covering Claude Code, Gemini CLI, Codex, and other agents.
+
+## Prerequisites
+
+- An OpenCage account with the appropriate API key(s):
+  - **Geocoding API key** (30 characters) — from [opencagedata.com/dashboard](https://opencagedata.com/dashboard)
+  - **Geosearch key** (`oc_gs_...` format) — from [opencagedata.com/geosearch](https://opencagedata.com/geosearch) — this is a separate key from the geocoding API key
 
 ---
 
