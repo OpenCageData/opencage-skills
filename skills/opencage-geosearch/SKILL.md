@@ -39,7 +39,7 @@ Covers:    Countries, cities, towns, villages, neighbourhoods — NOT street add
 
 - Geosearch is a front-end JavaScript widget; the Geocoding API is a back-end REST API.
 - Geosearch does type-ahead / prefix matching (e.g. "Par" → "Paris, France"); the Geocoding API does not.
-- Geosearch does **not** cover house addresses, postcodes, or individual roads.
+- Geosearch does **not** cover house addresses or individual roads.
 - Geosearch uses a **different API key** (format: `oc_gs_...`); a Geocoding API key will not work here.
 
 If the task requires converting a complete address or coordinates server-side, use the `opencage-geocoding-api` skill instead.
@@ -187,15 +187,15 @@ The widget ships with Algolia's `autocomplete-theme-classic` stylesheet. Appeara
 
 ## What the Service Covers
 
-Geosearch returns results for: countries, states/provinces, regions, cities, towns, villages, suburbs/neighbourhoods, and some points of interest.
+Geosearch returns results for: countries, states/provinces, regions, cities, towns, villages, suburbs/neighbourhoods, postcodes (for most countries), and some points of interest.
 
-It does **not** return: individual street addresses, postcodes, or road names.
+It does **not** return: individual street addresses or road names.
 
 ## Common Mistakes
 
 - **Skipping CORS domain setup** — the widget silently fails if the calling domain isn't registered in the OpenCage dashboard. This is the #1 integration issue.
 - **Using a Geocoding API key** — Geosearch keys start with `oc_gs_...`. A regular Geocoding API key will not work.
-- **Expecting street addresses** — Geosearch covers cities, towns, neighbourhoods, and POIs. It does NOT return individual addresses or postcodes. For those, use the `opencage-geocoding-api` skill.
+- **Expecting street addresses** — Geosearch covers cities, towns, neighbourhoods, and POIs. It does NOT return individual addresses or roads. For those, use the `opencage-geocoding-api` skill.
 - **Forgetting the CSS** — the widget needs both the JS bundle and the `autocomplete-theme-classic` stylesheet. Missing the CSS makes it invisible or unstyled.
 
 ## Further Reading
