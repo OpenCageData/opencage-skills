@@ -1,15 +1,15 @@
 # OpenCage Geocoding API — Command Line
 
-This skill covers command-line usage of the OpenCage Geocoding API via the `opencage` CLI tool.
+This skill covers command-line usage of the OpenCage Geocoding API via the `opencage-cli` CLI tool.
 For general, language-agnostic concepts (endpoint, parameters, response structure, error codes, confidence scores, annotations, rate limits, test keys), refer to **opencage-geocoding-api/SKILL.md** first.
 
 ## Installation
 
 ```bash
-pip install opencage
+pip install opencage-cli
 ```
 
-Requires Python 3.8 or newer. The same `opencage` package provides both the Python library and the CLI tool. Source is on GitHub at https://github.com/opencagedata/python-opencage-geocoder.
+Requires Python 3.8 or newer. Source is on GitHub at https://github.com/opencagedata/opencage-cli
 
 ## Basic Usage
 
@@ -150,5 +150,5 @@ Or add the export to your shell profile (`~/.bashrc`, `~/.zshrc`) so it persists
 ## Further Reading
 
 - OpenCage command-line tutorial: https://opencagedata.com/tutorials/geocode-commandline
-- `opencage` package on PyPI: https://pypi.org/project/opencage/
+- `opencage-cli` package on PyPI: https://github.com/opencagedata/opencage-cli
 - General API reference: **opencage-geocoding-api/SKILL.md**
