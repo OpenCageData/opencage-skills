@@ -99,10 +99,11 @@ You need:
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
 | `bounds` | string | — | Restrict results to a bounding box: `"min_lon,min_lat,max_lon,max_lat"` |
-| `countrycode` | string | — | ISO 3166-1 Alpha-2 country code to restrict results (e.g. `'de'`, `'gb'`) |
-| `proximity` | string | — | Bias results toward a coordinate: `"lat,lng"` |
+| `countrycode` | string | — | ISO 3166-1 alpha-2 country code to restrict results to one or more countires (e.g. `'de'` or `'gb'` or `'us,ca'`) |
 | `language` | string | `'en'` | Two-letter language code for results: `de`, `en`, `es`, `fr`, `it`, `pt` |
 | `limit` | number | `5` | Maximum number of results shown (max: `10`) |
+| `proximity` | string | — | Bias results toward a coordinate: `"lat,lng"` |
+| `_type` | string | `city` | limit to or exclude one of more specific result types: `'city,postcode'` or `'!postcode'` |
 | `debounce` | number | `300` | Milliseconds to wait after user stops typing before sending a request |
 | `noResults` | string | `"No results."` | Message displayed when the API returns no matches |
 
