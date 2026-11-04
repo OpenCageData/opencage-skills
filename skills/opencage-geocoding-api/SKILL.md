@@ -102,11 +102,18 @@ Every response is a JSON object with this shape:
         "southwest": { "lat": 52.3382448, "lng": 13.0883450 }
       },
       "components": {
+        "ISO_3166-1_alpha-2" : "DE",
+        "ISO_3166-1_alpha-3" : "DEU",
+        "ISO_3166-2" : [ "DE-BE" ],
+        "_category" : "place",
+        "_normalized_city" : "Berlin",
         "_type": "city",
+        "city": "Berlin",
+        "continent" : "Europe",
         "country": "Germany",
         "country_code": "de",
-        "city": "Berlin",
-        "postcode": "10117"
+        "state" : "Berlin",
+        "state_code" : "BE"
       },
       "confidence": 2,
       "annotations": { }
