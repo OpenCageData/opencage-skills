@@ -3,7 +3,7 @@
 This skill covers PHP-specific usage of the OpenCage Geocoding API.
 For general, language-agnostic concepts (endpoint, parameters, response structure, error codes, confidence scores, annotations, rate limits, test keys), refer to **opencage-geocoding-api/SKILL.md** first.
 
-This reference documents the **`opencage/geocode` PHP SDK v4.0.0**.
+This reference documents the **`opencage/geocode` PHP SDK v4.1.0**. In a Laravel application, also see *Usage with Laravel* below.
 
 ## Installation
 
@@ -11,7 +11,7 @@ This reference documents the **`opencage/geocode` PHP SDK v4.0.0**.
 composer require opencage/geocode
 ```
 
-The `opencage/geocode` package is available on Packagist and is the official PHP client maintained by OpenCage. It requires **PHP 8.2 or newer** and uses [Guzzle](https://docs.guzzlephp.org/) for HTTP, which Composer pulls in as a dependency — no extra configuration is required.
+The `opencage/geocode` package is available on Packagist and is the official PHP client maintained by OpenCage. It requires **PHP 8.3 or newer** and uses [Guzzle](https://docs.guzzlephp.org/) 7 or 8 for HTTP, which Composer pulls in as a dependency — no extra configuration is required. On PHP 8.2, Composer installs the 4.0.x series instead, which has the same methods but no Laravel integration and no `socks5h` proxies.
 
 ```php
 require 'vendor/autoload.php';
@@ -48,7 +48,7 @@ if ($result['total_results'] > 0) {
 }
 ```
 
-Internally this simply forms the `"lat,lng"` query for you, so passing a coordinate string to `geocode()` still works, but `geocodeReverse()` is clearer and is the recommended approach in 4.0.0.
+Internally this simply forms the `"lat,lng"` query for you, so passing a coordinate string to `geocode()` still works, but `geocodeReverse()` is clearer and is the recommended approach since 4.0.0.
 
 ## Passing Optional Parameters
 
@@ -64,6 +64,8 @@ $result = $geocoder->geocode('Brandenburg Gate', [
 ```
 
 The same optional-parameters array is accepted as the final argument of `geocodeReverse()`, `geocodeAsync()`, and `geocodeReverseAsync()`.
+
+Entries named `q` or `key` (in any letter case) are ignored: the query is always the first argument, and the API key is always the one passed to the constructor.
 
 **Always pass `'no_annotations' => '1'`** when you only need coordinates or the `formatted` address — it reduces response size and latency.
 
@@ -98,7 +100,7 @@ Each resolved promise yields the same associative-array structure as the synchro
 
 ## Handling the Response
 
-In 4.0.0 `geocode()` (and `geocodeReverse()`) **always returns an array** when a response is received, and **throws an `\Exception`** for a missing API key or an undecodable response — it never returns `null`. Network problems (DNS, TLS, unreachable host) are not thrown; they come back as a normal array with `status.code` of `498`.
+Since 4.0.0 `geocode()` (and `geocodeReverse()`) **always returns an array** when a response is received, and **throws an `\Exception`** for a missing API key or an undecodable response — it never returns `null`. Network problems (DNS, TLS, unreachable host, timeouts) are not thrown; they come back as a normal array with `status.code` of `498`. This works the same with Guzzle 7 and Guzzle 8.
 
 ```php
 try {
@@ -204,7 +206,7 @@ $geocoder->setTimeout(5);  // seconds; default is 10
 
 ### Proxy
 
-The proxy URL must include a scheme (`http`, `https`, or `socks5`) and a host, otherwise `setProxy()` throws an `\Exception`:
+The proxy URL must include a scheme (`http`, `https`, `socks5` or `socks5h`) and a host, otherwise `setProxy()` throws an `\Exception`. With `socks5h` the proxy also resolves the hostname, so no DNS lookup happens outside the proxy.
 
 ```php
 $geocoder->setProxy('https://proxy.example.com:1234');
@@ -212,7 +214,7 @@ $geocoder->setProxy('https://proxy.example.com:1234');
 
 ### Host
 
-`setHost()` accepts only `localhost` (optionally with a port) or an `opencagedata.com` subdomain; anything else throws an `\Exception`. This is mainly useful for testing.
+`setHost()` accepts only a local address (`localhost`, `127.0.0.1` or `0.0.0.0`, optionally with a port, or `::1`) or `opencagedata.com` and its subdomains; anything else throws an `\Exception`. This is mainly useful for testing.
 
 ```php
 $geocoder->setHost('localhost:8080');
@@ -226,7 +228,7 @@ Never hard-code your API key. Read it from an environment variable at runtime:
 $geocoder = new \OpenCage\Geocoder\Geocoder(getenv('OPENCAGE_API_KEY'));
 ```
 
-In development, use a `.env` file with the `vlucas/phpdotenv` package:
+In development, use a `.env` file with the `vlucas/phpdotenv` package (not needed in Laravel, which loads `.env` itself):
 
 ```php
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
@@ -235,11 +237,62 @@ $dotenv->load();
 $geocoder = new \OpenCage\Geocoder\Geocoder($_ENV['OPENCAGE_API_KEY']);
 ```
 
+## Usage with Laravel
+
+New in 4.1.0: in a Laravel application the package registers itself through package auto-discovery, so after `composer require opencage/geocode` there is no service provider or alias to add. Put the API key in `.env`:
+
+```
+OPENCAGE_API_KEY=YOUR-API-KEY
+```
+
+Then use the `OpenCage` facade, which offers `geocode()`, `geocodeReverse()`, `geocodeAsync()` and `geocodeReverseAsync()` with the same arguments and return values as the `Geocoder` class:
+
+```php
+use OpenCage;
+
+$result = OpenCage::geocode('82 Clerkenwell Road, London');
+echo $result['results'][0]['formatted'] . PHP_EOL;
+```
+
+Or type-hint `OpenCage\Geocoder\Geocoder` and let Laravel inject an instance that is already configured from `.env`. Don't construct it with `new` inside a Laravel app, since that skips the configuration:
+
+```php
+use OpenCage\Geocoder\Geocoder;
+
+class PlaceController
+{
+    public function __construct(private Geocoder $geocoder)
+    {
+    }
+
+    public function show()
+    {
+        $result = $this->geocoder->geocodeReverse(43.831, 4.360);
+        return $result['results'][0]['formatted'];
+    }
+}
+```
+
+Response handling is the same as outside Laravel (see *Handling the Response*). If `OPENCAGE_API_KEY` is not set, the facade and the injected `Geocoder` still resolve, but the first request throws the "Missing API key" exception.
+
+Optional settings, also read from `.env`:
+
+- `OPENCAGE_TIMEOUT` — request timeout in seconds, default 10
+- `OPENCAGE_PROXY` — proxy URL, with the same rules as `setProxy()`
+
+To change the configuration in code instead, publish the config file to `config/opencage.php`, which has the keys `key`, `timeout` and `proxy`:
+
+```bash
+php artisan vendor:publish --tag=opencage-config
+```
+
+In tests, avoid calling the API: mock the facade with `OpenCage::shouldReceive('geocode')->andReturn([...])`, or, for an injected `Geocoder`, use `$this->mock(Geocoder::class, ...)`.
+
 ## Further Reading
 
 - OpenCage PHP tutorial: https://opencagedata.com/tutorials/geocode-in-php
 - `opencage/geocode` on Packagist: https://packagist.org/packages/opencage/geocode
-- Source code (v4.0.0): https://github.com/OpenCageData/php-opencage-geocode
+- Source code (v4.1.0): https://github.com/OpenCageData/php-opencage-geocode
 - Guzzle documentation: https://docs.guzzlephp.org/
 - General API reference: **opencage-geocoding-api/SKILL.md**
 

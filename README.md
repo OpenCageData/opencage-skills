@@ -23,7 +23,7 @@ Includes language-specific reference files:
 | `references/python.md` | Python SDK usage |
 | `references/nodejs.md` | Node.js SDK usage |
 | `references/ruby.md` | Ruby SDK usage |
-| `references/php.md` | PHP SDK usage |
+| `references/php.md` | PHP SDK usage, including Laravel |
 | `references/java.md` | Java SDK usage |
 | `references/perl.md` | Perl SDK usage |
 | `references/commandline.md` | Command-line batch CSV processing |

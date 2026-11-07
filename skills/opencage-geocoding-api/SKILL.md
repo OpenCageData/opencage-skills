@@ -222,7 +222,7 @@ The OpenCage Geocoding API is language-agnostic — it is a standard HTTPS REST 
 - **Python** — `references/python.md`
 - **Node.js / TypeScript** — `references/nodejs.md`
 - **Ruby** — `references/ruby.md`
-- **PHP** — `references/php.md`
+- **PHP** (including Laravel) — `references/php.md`
 - **Java** — `references/java.md`
 - **Perl** — `references/perl.md`
 - **Command line (batch CSV processing)** — `references/commandline.md`
